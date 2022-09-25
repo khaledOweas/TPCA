@@ -1,0 +1,116 @@
+<p *ngIf="!zobas"><em>Loading...</em></p>
+
+
+<div class="clearfix">
+  <h2 class="float-start">Zoba Lists</h2>
+  <button class="btn btn-primary float-end" title="New List..."
+          (click)="showNewZobaModal(newZobaModalTemplate)">
+    Add New Zoba
+  </button>
+</div>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let zoba of zobas">
+    {{zoba.name}} - {{zoba.age}} - {{zoba.description}}
+
+
+    <a style=" position: absolute; right: 27px; bottom: 5px;" class="btn btn-sm btn-danger" (click)="deleteZoba(zoba.id)"> Delete </a>
+    <a style=" position: absolute; right: 92px; bottom: 5px;" class="btn btn-sm btn-warning" (click)="showUpdateZobaModal(updateZobaModalTemplate , zoba)"> Update </a>
+
+  </li>
+</ul>
+
+
+
+
+<ng-template #newZobaModalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">New Zoba</h4>
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="newZobaCancelled()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="title">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Zoba name..." [(ngModel)]="newZobaEditor.name"
+             [ngClass]="{ 'is-invalid': newZobaEditor.error }" (keyup.enter)="addZoba()" />
+      <div *ngIf="newZobaEditor.error" class="invalid-feedback">
+        {{ newZobaEditor.error }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Description</label>
+      <input type="text" class="form-control" id="description" placeholder="Zoba description..." [(ngModel)]="newZobaEditor.description"
+             [ngClass]="{ 'is-invalid': newZobaEditor.error }" (keyup.enter)="addZoba()" />
+      <div *ngIf="newZobaEditor.error" class="invalid-feedback">
+        {{ newZobaEditor.error }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="maxCount">Age</label>
+      <input type="number" class="form-control" id="age" placeholder="Zoba Age..." [(ngModel)]="newZobaEditor.age"
+             [ngClass]="{ 'is-invalid': newZobaEditor.error }" (keyup.enter)="addZoba()" />
+      <div *ngIf="newZobaEditor.error" class="invalid-feedback">
+        {{ newZobaEditor.error }}
+      </div>
+    </div>
+    <div *ngIf="debug">
+      <pre>{{ newZobaEditor | json }}</pre>
+    </div>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button class="btn btn-default" (click)="newZobaCancelled()">Cancel</button>
+      <button class="btn btn-primary" (click)="addZoba()">Create</button>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+<ng-template #updateZobaModalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Update Zoba</h4>
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="newZobaCancelled()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="title">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Zoba name..." [(ngModel)]="updateZobaEditor.name"
+             [ngClass]="{ 'is-invalid': updateZobaEditor.error }" (keyup.enter)="addZoba()" />
+      <div *ngIf="updateZobaEditor.error" class="invalid-feedback">
+        {{ updateZobaEditor.error }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Description</label>
+      <input type="text" class="form-control" id="description" placeholder="Zoba description..." [(ngModel)]="updateZobaEditor.description"
+             [ngClass]="{ 'is-invalid': updateZobaEditor.error }" (keyup.enter)="addZoba()" />
+      <div *ngIf="updateZobaEditor.error" class="invalid-feedback">
+        {{ updateZobaEditor.error }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="maxCount">Age</label>
+      <input type="number" class="form-control" id="age" placeholder="Zoba Age..." [(ngModel)]="updateZobaEditor.age"
+             [ngClass]="{ 'is-invalid': updateZobaEditor.error }" (keyup.enter)="addZoba()" />
+      <div *ngIf="updateZobaEditor.error" class="invalid-feedback">
+        {{ updateZobaEditor.error }}
+      </div>
+    </div>
+    <div *ngIf="debug">
+      <pre>{{ updateZobaEditor | json }}</pre>
+    </div>
+  </div>
+  <div class="modal-footer clearfix">
+    <div class="float-end">
+      <button class="btn btn-default" (click)="newZobaCancelled()">Cancel</button>
+      <button class="btn btn-warning" (click)="updateZoba()">Update</button>
+    </div>
+  </div>
+</ng-template>
